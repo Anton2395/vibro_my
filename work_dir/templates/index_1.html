@@ -1,0 +1,245 @@
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+
+
+<div id="container" style="height: 400px; min-width: 310px"></div>
+<script>
+var seriesOptions = [],
+  seriesCounter = 0,
+  names = ['datchik_1', 'datchik_2', 'datchik_3', 'datchik_4', 'datchik_5'],
+  last_id_1,
+  last_id_2,
+  last_id_3,
+  last_id_4,
+  last_id_5;
+/**
+ * Create the chart when all data is loaded
+ * @returns {undefined}
+ */
+function createChart() {
+  Highcharts.stockChart('container', {
+    chart: {
+        events: {
+
+          load: function () {
+
+            // set up the updating of the chart each second
+            var series = this.series[0],
+                series1 = this.series[1],
+                series2 = this.series[2],
+                series3 = this.series[3],
+                series4 = this.series[4],
+                series5 = this.series[5];
+            setInterval(function () {
+                 // принцип	тот же самый что и у обычного POST	запроса
+                const request = new XMLHttpRequest();
+                const url = "add_data";
+                var params = "last_id_1=" + last_id_1 + "&last_id_2=" + last_id_2 +"&last_id_3=" + last_id_3+"&last_id_4="+last_id_4+"&last_id_5="+last_id_5;
+                //	Здесь нужно указать в каком формате мы будем принимать данные вот и все	отличие
+                request.responseType =	"json";
+                request.open("POST", url, true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                request.addEventListener("readystatechange", () => {
+
+                    if (request.readyState === 4 && request.status === 200) {
+                        var obj = request.response;
+                        for (n = 0; n <= obj.datchik_1_axel.time.length - 1; n += 1) {
+                            series.addPoint([obj.datchik_1_axel.time[n], obj.datchik_1_axel.data[n]], true, true);
+                        }
+                        last_id_1 = obj.datchik_1_axel.length;
+                        for (n = 0; n <= obj.datchik_2_axel.time.length - 1; n += 1) {
+                            series1.addPoint([obj.datchik_2_axel.time[n], obj.datchik_2_axel.data[n]], true, true);
+                        }
+                        last_id_2 = obj.datchik_2_axel.length;
+                        for (n = 0; n <= obj.datchik_3_axel.time.length - 1; n += 1) {
+                            series2.addPoint([obj.datchik_3_axel.time[n], obj.datchik_3_axel.data[n]], true, true);
+                        }
+                        last_id_3 = obj.datchik_3_axel.length;
+                        for (n = 0; n <= obj.datchik_4_axel.time.length - 1; n += 1) {
+                            series.addPoint([obj.datchik_4_axel.time[n], obj.datchik_4_axel.data[n]], true, true);
+                        }
+                        last_id_5 = obj.datchik_5_axel.length;
+                        for (n = 0; n <= obj.datchik_5_axel.time.length - 1; n += 1) {
+                            series.addPoint([obj.datchik_5_axel.time[n], obj.datchik_5_axel.data[n]], true, true);
+                        }
+                        last_id_5 = obj.datchik_5_axel.length;
+                    // Здесь мы можем обращаться к свойству объекта и получать	его значение
+
+                    }
+                });
+                request.send(params);
+            }, 60000);
+         }
+        }
+    },
+    rangeSelector: {
+			buttons: [{
+					count: 60,
+					type: 'minute',
+					text: '1ч'
+				}, {
+					count: 320,
+					type: 'minute',
+					text: '6ч'
+				},
+				{
+					count: 720,
+					type: 'minute',
+					text: '12ч'
+				},
+				{
+					count: 1440,
+					type: 'minute',
+					text: '24ч'
+				},
+				{
+					count: 3,
+					type: 'day',
+					text: '3д'
+				},
+				{
+					count: 7,
+					type: 'day',
+					text: '7д'
+				},
+				{
+					count: 14,
+					type: 'day',
+					text: '14д'
+				},
+				{
+					count: 30,
+					type: 'day',
+					text: '30д'
+				},
+				{
+					type: 'all',
+					text: 'Всё'
+				}
+			],
+			inputEnabled: false,
+			selected: 5,
+
+			buttonSpacing: 30,
+			buttonTheme: { // styles for the buttons
+				width: 45,
+				style: {
+					color: '#000000',
+				},
+				states: {
+					hover: {
+						fill: '#42A5F5',
+						style: {
+							color: 'white'
+						}
+					},
+					select: {
+						fill: '#29B6F6',
+						style: {
+							color: 'white'
+						}
+					}
+				}
+			},
+		},
+
+    yAxis: {
+      // labels: {
+      //   formatter: function () {
+      //     return (this.value > 0 ? ' + ' : '') + this.value + '%';
+      //   }
+      // },
+      plotLines: [{
+        value: 0,
+        width: 2,
+        color: 'silver'
+      }]
+    },
+
+    // plotOptions: {
+    //   series: {
+    //     compare: 'percent',
+    //     showInNavigator: true
+    //   }
+    // },
+
+    // tooltip: {
+    //   pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+    //   valueDecimals: 2,
+    //   split: true
+    // },
+
+    series: seriesOptions
+  });
+}
+
+function success(data_server) {
+  var name = data_server['name'];
+  var i = data_server['i'];
+  seriesOptions[i] = {
+    name: name,
+    data: function () {
+      // generate an array of random data
+      var data = [],
+        time = data_server['time'],
+        dat = data_server['data'],
+        n;
+      for (n = 0; n <= time.length - 1; n += 1) {
+        data.push([
+          time[n],
+          dat[n]
+        ]);
+      }
+      if (i == 0) {
+          last_id_1 = data_server['length'];
+      }
+      if (i == 1) {
+          last_id_2 = data_server['length']
+      }
+      if (i == 2){
+          last_id_3 = data_server['length']
+      }
+      if (i == 3) {
+          last_id_4 = data_server['length'];
+      }
+      else {
+          last_id_5 = data_server['length'];
+      }
+      return data;
+    }()
+  };
+
+  // As we're loading the data asynchronously, we don't know what order it
+  // will arrive. So we keep a counter and create the chart when all the data is loaded.
+  seriesCounter += 1;
+
+  if (seriesCounter === names.length) {
+    createChart();
+  }
+}
+
+Highcharts.getJSON(
+  '/get_data_1',
+  success
+);
+Highcharts.getJSON(
+  '/get_data_2',
+  success
+);
+Highcharts.getJSON(
+  '/get_data_3',
+  success
+);
+Highcharts.getJSON(
+  '/get_data_4',
+  success
+);
+Highcharts.getJSON(
+  '/get_data_5',
+  success
+);
+
+</script>

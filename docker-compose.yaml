@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: postgres_local_base
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: mvlab
+      POSTGRES_PASSWORD: z1x2c3
+      POSTGRES_DB: db1
+      PGDATA: /data/postgres
+      TZ: Europe/Minsk
+    volumes:
+      - postgres:/data/postgres
+      #  - ./volume/DB/:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      mvlab_network:
+        ipv4_address: 10.0.0.2
+  
+  opc:
+    container_name: web_datchik
+    build: ./work_dir
+    command: python main.py
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - ./work_dir:/code
+    ports:
+      - 5000:5000
+    networks:
+      mvlab_network:
+        ipv4_address: 10.0.0.6
+
+
+networks:
+  mvlab_network:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
+
+volumes:
+  postgres:

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Пиши сокращай</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+  <script>$(document).ready(function () {
+    $(".collapse.in").prev(".panel-heading").addClass("active");
+    $("#accordion, #bs-collapse")
+      .on("show.bs.collapse", function (a) {
+        $(a.target).prev(".panel-heading").addClass("active");
+      })
+      .on("hide.bs.collapse", function (a) {
+        $(a.target).prev(".panel-heading").removeClass("active");
+      });
+  });
+  </script>
+
+    <link href="{{ url_for('static', filename = 'css/lightbox.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename = 'js/lightbox-plus-jquery.js') }}"></script>
+
+<style>
+    .navbar {
+        margin-bottom: 0;
+        border-radius: 0;
+        height: 70px;
+        font-size: 19px;
+        color: #AAAAAA;
+        font-family: 'Roboto';
+        src: local('Roboto'), local('Roboto-Regular'), url('Roboto.woff2') format('woff2'), url('Roboto.woff') format('woff'), url('Roboto.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        background-color: #000000;
+    }
+    .nav{
+        margin-top: 10px !important;
+        margin-left: 70px !important;
+    }
+    .container {
+        margin-left: 70px !important;
+    }
+    .footer {
+        background-color: #000000;
+        color: #7B7B7B;
+        padding: 20px;
+        margin-top: 40px ;
+    }
+    body{ font-family: 'Roboto', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .header-image{
+        display: block;
+        width: 1920px;
+        height: 801px;
+        text-align: left;
+        padding-left: 100px;
+        padding-top: 280px;
+        background: url({{ url_for('static', filename = 'Фото/3.png') }}) no-repeat center center scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -o-background-size: cover;
+    }
+    .header-image h1 {
+        font-size: 50px;
+        color: #FAFAFA;
+    }
+    .header-image h2 {
+        font-size: 20px;
+        color: #878787;
+    }
+    .fluid{
+        position: relative;
+        display: inline-block;
+    }
+    .tex h1{
+        font-size: 48px;
+        color: #161616;
+        font-family: 'Roboto';
+        src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.woff2') format('woff2'), url('Robotobold.woff') format('woff'), url('Robotobold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        text-align: center;
+    }
+    .active{
+        font-family: 'Roboto';
+        src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.woff2') format('woff2'), url('Robotobold.woff') format('woff'), url('Robotobold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+    }
+    .tex h2{
+        font-size: 20px;
+        color: #161616;
+        font-family: 'Roboto';
+        src: local('Roboto'), local('Roboto-Regular'), url('Roboto.woff2') format('woff2'), url('Roboto.woff') format('woff'), url('Roboto.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        text-align: center;
+        line-height: 150.2%;
+    }
+    .pynkt li {
+        list-style-type: none;
+    }
+    .pynkt li {
+        display: inline;
+    }
+    .pynkt ul {
+        margin: 0;
+        padding: 0px;
+    }
+    .tex2 {
+        font-size: 18px;
+        color: #464040;
+        font-family: 'Roboto';
+        src: local('Roboto'), local('Roboto-Regular'), url('Roboto.woff2') format('woff2'), url('Roboto.woff') format('woff'), url('Roboto.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        vertical-align: top;
+        display: inline-block; 
+        padding-left: 20px;
+    }
+    .bag2{
+        background-color: #252525;
+        width: 100%;
+        height: 219px;
+        margin-bottom: 40px;
+    }
+    .row{
+    padding-top: 80px;
+    margin-bottom: 132px;}
+    .glav{
+        font-size: 48px;
+        color: #161616;
+        font-family: 'Roboto';
+        src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.woff2') format('woff2'), url('Robotobold.woff') format('woff'), url('Robotobold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        text-align: center;
+    }
+    .picture4{
+        position: absolute;
+        top: 130px;
+        left: 1200px;
+    }
+    .red{
+        color: rgb(255, 0, 0);
+    }
+    .divider2{
+        padding-left: 70px;
+        width: 75%;
+    }
+    .button {
+        /* Сбрасываем дефолтные стили */
+        border: none;
+        outline: none;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 16px 16px;
+        border-radius: 100px;
+        color: rgb(0, 0, 0);
+        width: 188px;
+        height: 64px;
+    }
+    .button.blue {
+        background: #FE5231;
+    }
+    .button:active {
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .button:active.blue {
+        background: #df482a;
+    }
+    .divider3{
+        margin: 0px 0px;
+        width: 60%;
+    } 
+    .bag{
+        background-color: #252525;
+        color: #FFF;
+        padding-left: 230px;
+    }
+    .ph{
+        color: #BCBCBC;
+        font-size: 18px;
+        font-family: 'Roboto';
+        src: local('Roboto'), local('Roboto-Regular'), url('Roboto.woff2') format('woff2'), url('Roboto.woff') format('woff'), url('Roboto.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        text-align: left;
+    }
+    .ph2{
+        font-size: 48px;
+        font-family: 'Roboto';
+        src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.woff2') format('woff2'), url('Robotobold.woff') format('woff'), url('Robotobold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+    }
+    .phn{
+        padding-right: 150px;
+    }
+    .hotop{
+        padding-left: 400px;
+        padding-top: 80px;
+    }
+    .hotop2{
+        margin-left: 850px;
+        margin-top: -144px;
+    }
+    .foor{
+        background-color: #000000;
+        height: 243px;
+    }
+    .plan h1{
+        font-size: 24px;
+        font-family: 'Roboto';
+        src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.woff2') format('woff2'), url('Robotobold.woff') format('woff'), url('Robotobold.ttf') format('truetype');
+        font-weight: 600;
+        font-style: normal;
+        text-align: center;
+        padding-bottom: 5px;
+    }
+    .plan h2{
+        font-size: 18px;
+        font-family: 'Roboto';
+        src: local('Roboto Bold'), local('Roboto-Bold'), url('Robotobold.woff2') format('woff2'), url('Robotobold.woff') format('woff'), url('Robotobold.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        text-align: center;
+    }
+    .ivk2{
+        padding-top: 20px;
+    }
+    .ivk{
+        width: 80%;
+
+    }
+    .plan2{
+        padding-left: 210px;
+    }
+    .plan{
+        padding-left: 230px;
+    }
+    .item2{
+        width: 100%;
+    }
+    .item{
+        height: 500px;
+    }
+    .body3{
+    background-color: #252525;
+    width: 1920px;
+    height: 1230px;
+    padding-top: -100px;
+    
+    }
+    h3 {
+    color: #807e7e;
+    font-size: 24px;
+    margin-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #252525;
+    margin-bottom: 30px;
+    font-weight: 300;
+    }
+    .wrap {
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0), 0px 3px 1px -2px rgba(0, 0, 0, 0), 0px 1px 5px 0px rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    }
+    a:focus,
+    a:hover,
+    a:active {
+    outline: 0;
+    text-decoration: none;
+    }
+    .panel {
+    padding-left: 250px;
+    padding-right: 500px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0);
+    background: none;
+    box-shadow: none;
+    }
+    .panel-title{
+        border-bottom: 1px solid #ffffff00;
+    }
+    .panel-heading {
+    background-color: #252525;
+    border-radius: 0;
+    border: none;
+    color: rgba(255, 255, 255, 0);
+    padding: 0;
+    }
+    .panel-title a {
+    display: block;
+    color: #fff;
+    padding: 25px;
+    position: relative;
+    font-size: 30px;
+    font-weight: 400;
+    }
+    .panel-body {
+    background: #252525;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    font-size: 28px;
+    color: #807e7e;
+    }
+    .panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
+        border-top: 1px solid #ffffff00;
+        border-bottom: 1px solid #ffffff00;
+    }
+    #accordion .panel-heading a:before {
+    content: url({{ url_for('static', filename = 'Фото//11.svg') }}) !important;
+    font-size: 24px;
+    position: absolute;
+    font-family: 'Material Icons';
+    right: 15px;
+    top: 15px;
+    transform: rotate(0deg);
+    transition: all 0.5s;
+    }
+    #accordion .panel-heading.active a:before {
+    transform: rotate(45deg);
+    transition: all 0.5s;
+    }
+    
+
+    .gallery a img{
+           opacity: 0.4;
+           filter: alpha(opacity=40); /* Для IE8 и ранних версий */
+           
+           filter: blur(1px);
+           -webkit-filter: blur(1px);
+            
+            border-radius: 5px;
+        }
+        .gallery a img:hover{
+           opacity: 1.0;
+           filter: alpha(opacity=100); /* Для IE8 и ранних версий */
+           
+           filter: blur(0px);
+           -webkit-filter: blur(0px);
+        }
+        
+        .gallery{
+            border: 1px solid #DDDDDD;
+            padding: 10px;
+            margin: 4px;
+            display: inline-block;
+        }
+        .gallery:hover{
+           border: 1px solid #333333; 
+        }
+        .gallery h3{
+            font-weight: normal;
+            padding: 4px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+
+</style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename = 'Фото/1.png') }}" style="color:#FE5231; width: 100%;"></a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#1">О чём книга</a></li>
+        <li><a href="#2">Содержание</a></li>
+        <li><a href="#3">Галерея</a></li>
+        <li><a href="#4">Отзыв</a></li>
+        <li><a href="#5">Заказать</a></li> 
+      </ul>
+      <ul class="nav navbar-nav">
+        <li><a href="https://oz.by/books/more10534756.html">Oz.by</a></li>
+        <li><a href="#"><img src="{{ url_for('static', filename = 'Фото/2.png') }}" style="width: 20%;">&nbsp;695-25-25</a></li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="fluid">
+        <div class="header-image col-md-6" id="9">
+        <h1>Пиши,сокращай.<br>Как создать сильный текст</h1><br>
+        <h2>Эта книга про копирайтинг.Как научиться писать тексты,<br>которые будут читать с удовольствием</h2><br><br>
+        <a href="#5">
+            <button id="login" class="button blue">
+            <i class="fa fa-unlock"></i>
+            <span><b>КУПИТЬ</b></span>
+            </button>
+        </a>
+        <img src="{{ url_for('static', filename = 'Фото/4.png') }}" class="picture4">
+        </div>
+</div>
+
+<br> <br> <br><br> <br><br> <br>
+<div class="container2" >
+    <div class="tex" >
+        <h1 id="1">О чём книга</h1><br><br>
+        <h2>Максим Ильяхов и Людмила Сарычева на конкретных примерах показывают, что такое хорошо и что такое плохо в<br>информационных, рекламных, журналистских и публицистических текстах.</h2>
+        <h2>Это обязательная книга для копирайтеров, авторов и редакторов, а также дизайнеров, программистов, менеджеров,<br>предпринимателей, руководителей, служащих и всех, кто использует текст в работе.</h2>
+    </div><br><br><br><br><br><br>
+    <div class="pynkt">
+        <ul>
+            <li style="padding-left: 250px;"><img src="{{ url_for('static', filename = 'Фото/5.png') }}">
+                <span class="tex2">Как писать письма, на<br>которые будут отвечать, и<br>рассылки, от которых не<br>будут отписываться.</span>
+            </li>
+            <li style="padding-left: 100px;"><img src="{{ url_for('static', filename = 'Фото/5.png') }}">
+                <span class="tex2">Как создавать <br>действенные и не <br>вульгарные рекламные <br>объявления.</span>
+            </li>
+            <li style="padding-left: 100px;"><img src="{{ url_for('static', filename = 'Фото/5.png') }}">
+                <span class="tex2">Как излагать мысли <br>кратко, ясно и <br>убедительно: без <br>языкового мусора, <br>фальши и штампов.</span>
+            </li>
+            <li style="padding-left: 100px;"><img src="{{ url_for('static', filename = 'Фото/5.png') }}">
+                <span class="tex2">Следуя рекомендациям <br>в книге, вы научитесь <br>писать понятно, <br>увлекать читателей и <br>добиваться доверия. </span>
+            </li>
+        </ul>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br>
+
+
+
+<div class="col-md-6 col-sm-6 body3" id="2">
+    <div>
+    <h1 class="glav" style="padding-top: 80px; color: #FAFAFA;">Содержание</h1>
+    </div>
+    <div class="panel-title">
+    <h3 style="padding-left: 260px;">Знакомство<br><br>Что в голове у хорошего автора<br></h3>
+    </div>
+    <div class="panel-group wrap" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title" style="border-top: 1px solid #ffffff;">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          Глава 1. Отжать воду
+        </a>
+      </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            Метод<br>
+            Вводные<br>
+            Оценки<br>
+            Штампы<br>
+            Заумное<br>
+            Эвфенизмы<br>
+            Отлагольное<br>
+            Неопределенное<br>
+            Брехня<br>
+            В жизни<br>
+          </div>
+        </div>
+      </div>
+      <!-- end of panel -->
+
+      <div class="panel">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title" style="border-top: 1px solid #ffffff;">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Глава 2. Донести мысль
+        </a>
+      </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            Информативность<br>
+            Синтаксис<br>
+            Запятая<br>
+            Однородные члены<br>
+            Абзацы<br>
+            Цель и задачи<br>
+            Структура<br>
+            Заголовок<br>
+            Дидактика<br>
+            Чувственный опыт<br>
+            Информативность<br>
+            Факты<br>
+            Сложные случаи<br>
+          </div>
+        </div>
+      </div>
+      <!-- end of panel -->
+
+      <div class="panel">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title" style="border-top: 1px solid #ffffff; ">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Глава 3. Рассказать о себе
+        </a>
+      </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" >
+          <div class="panel-body" >
+            Решение о покупке<br>
+            Рассказ о покупке<br>
+            Текст о себе и компании<br>
+            Регалии<br>
+            Сопроводительное письмо<br>
+            Вранье<br>
+            Главный секрет<br>
+            Что дальше<br>
+            За кулисами<br>
+          </div>
+          
+        </div>
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title" style="border-top: 1px solid #ffffff; ">
+          </div>
+      </div>
+      
+    </div>
+    <!-- end of #accordion -->
+
+  </div>
+  <!-- end of wrap -->
+
+</div>
+<!-- end of container -->
+
+
+
+<br><br><br><br>
+
+<h1 class="glav" style="padding-top: 1200px; " >Галерея книги</h1>
+<br><br><br><br>
+
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/18.jpg') }}" data-lightbox="image-1" data-title="Оммм..."><img src="{{ url_for('static', filename = 'Фото/18.jpg') }}" alt="Оммм.." width="200" height="300"></a><h3>Оммм...</h3></div>
+
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/11.jpg') }}" data-lightbox="image-1" target="_blank" data-title="Содержание"><img src="{{ url_for('static', filename = 'Фото/11.jpg') }}" alt="Содержание" width="200" height="300"></a><h3>Содержание</h3> </div>
+    
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/12.jpg') }}" data-lightbox="image-1" target="_blank" data-title="Страница 10"><img src="{{ url_for('static', filename = 'Фото/12.jpg') }}" alt="Изображение 3" width="200" height="300"></a><h3>Страница 10</h3> </div>
+    
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/13.jpg') }}" data-lightbox="image-1" target="_blank" data-title="Страница 11"><img src="{{ url_for('static', filename = 'Фото/13.jpg') }}" alt="Изображение 4" width="200" height="300"></a><h3>Страница 11</h3> </div>
+    
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/14.jpg') }}" data-lightbox="image-1" target="_blank" data-title="Страница 12"><img src="{{ url_for('static', filename = 'Фото/14.jpg') }}" alt="Изображение 5" width="200" height="300"></a><h3>Страница 12</h3> </div>
+    
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/15.jpg') }}" data-lightbox="image-1" target="_blank" data-title="Страница 13"><img src="{{ url_for('static', filename = 'Фото/15.jpg') }}" alt="Изображение 6" width="200" height="300"></a><h3>Страница 13</h3> </div>
+
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/17.jpg') }}" data-lightbox="image-1" target="_blank" data-title="Страница 35"><img src="{{ url_for('static', filename = 'Фото/17.jpg') }}" alt="Изображение 6" width="200" height="300"></a><h3>Страница 35</h3> </div>
+
+<div class="gallery"><a href="{{ url_for('static', filename = 'Фото/19.jpg') }}" data-lightbox="image-1" target="_blank" data-title="Об авторах"><img src="{{ url_for('static', filename = 'Фото/19.jpg') }}" alt="Изображение 6" width="200" height="300"></a><h3>Об авторах</h3> </div>
+
+
+
+
+
+<br><br><br><br><br><br><br><br>
+<h1 class="glav">О книге</h1>
+<br><br><br><br>
+
+<div class="plan2">
+    <div class="col-md-2">
+        <img src="{{ url_for('static', filename = 'Фото/9.png') }}" class="ivk2" style="padding-left: 110px;">
+    </div>
+    <div class="col-md-2">
+        <img src="{{ url_for('static', filename = 'Фото/9.png') }}" class="ivk" style="padding-left: 110px;">
+    </div>
+    <div class="col-md-2">
+        <img src="{{ url_for('static', filename = 'Фото/9.png') }}" class="ivk2" style="padding-left: 110px;">
+    </div>
+    <div class="col-md-2">
+        <img src="{{ url_for('static', filename = 'Фото/9.png') }}" class="ivk" style="padding-left: 110px;">
+    </div>
+    <div class="col-md-2">
+        <img src="{{ url_for('static', filename = 'Фото/9.png') }}" class="ivk2" style="padding-left: 110px;">
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br>
+
+<div class="plan">
+    <div class="col-md-2">
+        <h1>Издательство</h1>
+        <h2>Альпина Паблишер</h2>
+    </div>
+    <div class="col-md-2">
+        <h1>Тип обложки</h1>
+        <h2>Мягкая обложка</h2>
+    </div>
+    <div class="col-md-2">
+        <h1>Год издания</h1>
+        <h2>2021 г. 3-е изд.</h2>
+    </div>
+    <div class="col-md-2">
+        <h1>Количество страниц</h1>
+        <h2>440 с. стр.</h2>
+    </div>
+    <div class="col-md-2">
+        <h1>Размеры</h1>
+        <h2>60x90/16 (145х215 мм)</h2>
+    </div>
+</div>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="fluid bag">
+    <div class="row divider" id="4">
+        <div class="col-md-6 phn">
+            <hr class="divider3">
+            <h2 class="ph2"><b>Отзыв в СМИ</b></h2><br><br>
+            <p class="lead ph">Броская оранжевая обложка, вероятно, снится во сне всем профессионалом, работающим с текстами – копирайтерам, журналистам, маркетологам… Вот только с текстами сейчас в той или иной мере работают все! Даже если по работе вам не нужно готовить презентации, писать письма партнерам и коллегам, составлять пояснительные записки к отчетам (что, правда, так бывает?) – успешный профессионал не пренебрегает личным брендом и активно пишет в соцсетях. И тут понимание инфостиля точно пригодится. Для кого: для всех, кто хочет грамотно писать и осознает необходимость делиться профессиональным и жизненным опытом в соцсетях или личном блоге.</p>
+            <br><br>
+            <a href="https://oz.by/books/more10534756.html">
+                <button id="login" class="button blue">
+                <i class="fa fa-unlock"></i>
+                <span><b>КУПИТЬ</b></span>
+               </button>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename = 'Фото/4.png') }}" style="width: 65%; padding-left: 180px;" class="img-responsive">
+        </div>
+    </div>
+</div>
+
+
+
+<br><br><br><br><br><br>
+<h1 class="glav" id="5">Оформление заказа</h1>
+<div class="row" id="">
+    <div class="col-md-5">
+    <img class="featurette-image img-responsive pull-right" style="width: 65%;" src="{{ url_for('static', filename = 'Фото/7.webp') }}">
+    </div>
+    <div class="col-md-7">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Имя</label>
+        <div class="col-sm-6">
+        <input type="text" class="form-control" id="name" placeholder="Илона">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Фамилия</label>
+        <div class="col-sm-6">
+        <input type="text" class="form-control" id="name" placeholder="Карнейчик">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Выберите<br>подарок <span class="red">*</span></label></label>
+        <div class="col-sm-6">
+            <div class="radio">
+                <label><input type="radio" name="optradio"><b>Обложка</b></label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio"><b>Закладка</b></label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio"><b>Открытка</b></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Телефон</label>
+        <div class="col-sm-6">
+        <input type="text" class="form-control" id="name" placeholder="+375299999999">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Email <span class="red">*</span></label></label>
+        <div class="col-sm-6">
+        <input type="text" class="form-control" id="name" placeholder="КИС@gmail.com">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Выберите день<br>доставки<span class="red">*</span></label></label>
+        <div class="col-sm-6">
+            <label class="checkbox-inline"><input
+                type="checkbox" value=""><b>Понедельник</b></label>
+                <label class="checkbox-inline"><input
+                type="checkbox" value=""><b>Вторник</b></label>
+                <label class="checkbox-inline"><input
+                type="checkbox" value=""><b>Среда</b></label><br>
+
+                <label class="checkbox-inline"><input
+                    type="checkbox" value=""><b>Четверг</b></label>
+                    <label class="checkbox-inline"><input
+                    type="checkbox" value=""><b>Пятница</b></label>
+                    <label class="checkbox-inline"><input
+                    type="checkbox" value=""><b>Суббота</b></label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="name" class="control-label col-sm-2">Способ доставки</label>
+        <div class="col-sm-6">
+                <select class="form-control"
+                id="sel1">
+                <option>Самовывоз</option>
+                <option>Почта</option>
+                <option>Курьер</option>
+                <option>Самолёт</option>
+                </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="message" class="control-label col-sm-2">Пожелания</label>
+        <div class="col-sm-6">
+        <textarea class="form-control" rows="3" id="message"></textarea>
+    </div><br><br><br><br><br>
+
+    <hr class="divider2">
+    <h1 style="padding-left: 200px;"><b>Сумма к оплате: 36.02 руб.</b></h1>
+    <br><br>
+
+    </form>
+
+    </div>
+    <a href="#9" style="padding-left: 200px;">
+        <button id="login" class="button blue">
+        <i class="fa fa-unlock"></i>
+        <span><b>КУПИТЬ</b></span>
+       </button>
+    </a>
+    
+    </div>
+</div>
+
+
+
+
+
+<div class="foor">
+    <div class="col-md-6 hotop">
+        <a href="https://oz.by/books/more10534756.html"><button id="login" class="button blue" style="width: 265px;">
+            <i class="fa fa-unlock"></i>
+            <span><b>ПЕРЕЙТИ НА САЙТ</b></span>
+          </button></a>
+    </div>
+    <div class="col-md-6 hotop2">
+        <img src="{{ url_for('static', filename = 'Фото/8.jpg') }}" style="width:100%">
+    </div>
+    <br><br>
+</div>
+
+<footer class="container-fluid text-center panel-footer footer">
+    <p><b>@ Карнейчик Илона 2 курс 3 подгруппа</b></p>
+</footer>
+
+</body>
+</html>

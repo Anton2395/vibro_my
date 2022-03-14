@@ -1,0 +1,36 @@
+<head>
+<meta charset="utf-8" />
+<title>Chart.js Example</title>
+<!-- import plugin script -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"> </script>
+</head>
+<h1>Simple Line Chart</h1>
+<!-- bar chart canvas element -->
+<canvas id="myCanvas" width="400" height="400"></canvas>
+<script>
+// Line chart
+    new Chart(document.getElementById("myCanvas"), {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+        data: {{data.data | tojson}} ,
+        label: "datchik_1",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Positive Cases of COVID in provinces of Canada'
+    },
+    hover: {
+     mode: 'index',
+     intersect: true
+    },
+  }
+});
+</script>
