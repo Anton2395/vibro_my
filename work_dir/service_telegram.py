@@ -44,7 +44,9 @@ def pars_message(data):
                    'callback': True
                    }
     else:
-        message = {}
+        message = {
+            "text": ''
+        }
     return message
 
 
