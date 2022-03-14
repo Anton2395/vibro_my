@@ -43,6 +43,8 @@ def pars_message(data):
                    'text': data['callback_query']['data'],
                    'callback': True
                    }
+    else:
+        message = {}
     return message
 
 
