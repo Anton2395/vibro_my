@@ -50,7 +50,7 @@ def pars_message(data):
     try:
         print(1, '---------------', data)
     except:
-        print(1, '---------------', not done)
+        print(1, '---------------', "not done")
     print(2, '---------------', message)
     return message
 
