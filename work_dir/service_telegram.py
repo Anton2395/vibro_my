@@ -1,4 +1,3 @@
-from turtle import done
 import requests
 
 from flask import jsonify
