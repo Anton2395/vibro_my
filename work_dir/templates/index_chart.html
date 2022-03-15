@@ -15,13 +15,12 @@ var seriesOptions = [],
  * @returns {undefined}
  */
 function createChart() {
-	Highcharts.setOptions({
-    time: {
-        timezone: 'Europe/Minsk'
-    }
-});
+	
 
   Highcharts.stockChart('container', {
+	  time: {
+		  useUTC:true
+	  },
 
 
     rangeSelector: {
