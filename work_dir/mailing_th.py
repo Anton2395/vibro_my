@@ -10,7 +10,7 @@ class Mailing(Thread):
     """
     r = ''
 
-    def __init__(self, name, text, func_db, table):
+    def __init__(self, name, text):
         """Инициализация потока"""
         Thread.__init__(self)
         self.name = name
