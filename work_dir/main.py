@@ -15,14 +15,14 @@ if __name__ == "__main__":
     my_flask.start()
     while True:
         if not my.is_alive():
-            print("restart back")
+            print(_dt.datetime.now(), "----------- restart back")
             with open("logs.log", 'a') as file:
                 file.write(_dt.datetime.now(), "restart back writer to db")
             my.tirmenate()
             my.start()
             time.sleep(1)
         if not my_flask.is_alive():
-            print("restart flask")
+            print(_dt.datetime.now(), "----------- restart flask")
             with open("logs.log", 'a') as file:
                 file.write(_dt.datetime.now(), "restart flask")
             my_flask.tirmenate()
