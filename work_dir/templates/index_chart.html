@@ -143,7 +143,7 @@ function success(data_server) {
 		console.log(time)
       for (n = 0; n <= time.length - 1; n += 1) {
         data.push([
-          Date(Number(time[n])),
+          time[n],
           dat[n]
         ]);
       }
