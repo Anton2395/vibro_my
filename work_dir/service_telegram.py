@@ -31,7 +31,6 @@ async def send_mailing(text):
 
 
 def pars_message(data):
-    print(data)
     if 'message' in data:
         message = {'chat_id': data['message']['chat']['id'],
                    'username': data['message']['from']['username'],
