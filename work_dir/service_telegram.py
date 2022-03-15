@@ -47,14 +47,6 @@ def pars_message(data):
          message = {
              "text": ""
          }
-    try:
-        print(1, '---------------', data)
-    except:
-        print(1, '---------------', "not done")
-    try:
-        print(2, '---------------', message)
-    except:
-        print(2, '---------------', message['text'])
     return message
 
 
@@ -97,6 +89,7 @@ def routing_tg(message, response):
                              text='Привет',
                              keyboard=_kb.keyboard_start_mailing())
             elif message['text'] == 'Подписаться':
+                print("DONE")
                 update_subscription(chat_id=message['chat_id'], subscription=1)
                 send_message(chat_id=message['chat_id'],
                              text= 'Ты успешно подписался',
