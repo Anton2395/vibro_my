@@ -67,6 +67,7 @@ def update_subscription(chat_id, subscription):
     with _models.get_db() as db:
         user = db.query(_models.User).filter(_models.User.chat_id==chat_id).first()
         user.mailing = subscription
+        db.commit()
 
 
 def routing_tg(message, response):
@@ -91,6 +92,7 @@ def routing_tg(message, response):
             elif message['text'] == 'Подписаться':
                 print("DONE")
                 update_subscription(chat_id=message['chat_id'], subscription=1)
+                print("change done")
                 send_message(chat_id=message['chat_id'],
                              text= 'Ты успешно подписался',
                              keyboard=_kb.keyboard_stop_mailing())
