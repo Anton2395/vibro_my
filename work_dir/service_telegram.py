@@ -1,3 +1,4 @@
+from turtle import done
 import requests
 
 from flask import jsonify
@@ -43,6 +44,15 @@ def pars_message(data):
                    'text': data['callback_query']['data'],
                    'callback': True
                    }
+    else:
+         message = {
+             "text": ""
+         }
+    try:
+        print(1, '---------------', data)
+    except:
+        print(1, '---------------', not done)
+    print(2, '---------------', message)
     return message
 
 
