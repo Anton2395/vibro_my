@@ -20,7 +20,7 @@ async def pars():
     max_value = max(Axel)
     with _models.get_db() as db:
         if mac == '4C:75:25:36:34:3F':
-            if max_value > 4:
+            if max_value > 0.1:
                 await _tel_bot.send_mailing(text='1 датчик значение: {value}'.format(value=max_value))
             for time, value in zip(Axel_time, Axel):
                 data_to_db = _models.Datchik_1_axel(
