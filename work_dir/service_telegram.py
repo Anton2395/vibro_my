@@ -51,7 +51,7 @@ def pars_message(data):
         print(1, '---------------', data)
     except:
         print(1, '---------------', "not done")
-    print(2, '---------------', message)
+    print(2, '---------------', message['text'])
     return message
 
 
