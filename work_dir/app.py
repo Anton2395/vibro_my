@@ -148,7 +148,7 @@ def main_chart():
 
 @app.route("/tg", methods=['POST'])
 def pull_json_tg():
-    print(str(request.get_json()))
+    print(dir(request))
     message = _tel_bot.pars_message(request.get_json())
     _tel_bot.routing_tg(message=message, response=request.get_json())
     return jsonify(request.get_json())
