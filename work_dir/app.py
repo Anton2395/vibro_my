@@ -20,7 +20,7 @@ async def pars():
     max_value = max(Axel)
     with _models.get_db() as db:
         if mac == '4C:75:25:36:34:3F':
-            if max_value > 0.1:
+            if max_value > 4:
                 await _tel_bot.send_mailing(text='1 датчик значение: {value}'.format(value=max_value))
             for time, value in zip(Axel_time, Axel):
                 data_to_db = _models.Datchik_1_axel(
@@ -37,7 +37,7 @@ async def pars():
                 db.add(data_to_db)
                 db.commit()
         elif mac == '58:BF:25:DB:3A:78':
-            if max_value > 0.1:
+            if max_value > 4:
                 await _tel_bot.send_mailing(text='2 датчик значение: {value}'.format(value=max_value))
             for time, value in zip(Axel_time, Axel):
                 data_to_db = _models.Datchik_2_axel(
@@ -54,7 +54,7 @@ async def pars():
                 db.add(data_to_db)
                 db.commit()
         elif mac == '58:BF:25:DA:D8:03':
-            if max_value > 0.1:
+            if max_value > 4:
                 await _tel_bot.send_mailing(text='3 датчик значение: {value}'.format(value=max_value))
             for time, value in zip(Axel_time, Axel):
                 data_to_db = _models.Datchik_3_axel(
@@ -71,7 +71,7 @@ async def pars():
                 db.add(data_to_db)
                 db.commit()
         elif mac == '58:BF:25:DB:4D:C8':
-            if max_value > 0.1:
+            if max_value > 4:
                 await _tel_bot.send_mailing(text='4 датчик значение: {value}'.format(value=max_value))
             for time, value in zip(Axel_time, Axel):
                 data_to_db = _models.Datchik_4_axel(
