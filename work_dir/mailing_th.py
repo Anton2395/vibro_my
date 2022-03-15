@@ -21,7 +21,7 @@ class Mailing(Thread):
         with _models.get_db as db:
             users = db.query(_models.User).filter(_models.User.mailing==1)
         # users = user.query.filter_by(mailing=1).all()
-        URL = 'https://api.telegram.org/bot1706131432:AAEPJ7mTwRp15E0xb7vdNSAYGRVqAAsPdG8/'
+        URL = 'https://api.telegram.org/bot1929071630:AAGd6557EvdeWtOs2bhc_dd_eVVGzx7XGOY/'
         for user in users:
             url = URL + 'sendMessage'
             answer = {'chat_id': user.chat_id,

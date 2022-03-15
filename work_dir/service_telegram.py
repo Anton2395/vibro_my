@@ -9,7 +9,7 @@ from mailing_th import Mailing
 
 
 
-URL = 'https://api.telegram.org/bot1706131432:AAEPJ7mTwRp15E0xb7vdNSAYGRVqAAsPdG8/'
+URL = 'https://api.telegram.org/bot1929071630:AAGd6557EvdeWtOs2bhc_dd_eVVGzx7XGOY/'
 
 
 def send_message(chat_id, text, keyboard):
