@@ -1,5 +1,6 @@
 import json
 import datetime as _dt
+import traceback
 
 from sqlalchemy import asc
 import requests
@@ -128,16 +129,23 @@ def downlod_and_add_to_db():
     with _models.get_db() as db:
         for time_no_format_str, mm, temp in zip(data["time"], data["mm"], data["temp"]):
             time_format_str = time_no_format_str.replace(" ", "")
-            time_no_tz = _dt.datetime.strptime(time_format_str, '%Y-%m-%dT%H:%M:%S')
-            time_no_tz += _dt.timedelta(hours=2)
-            my_tz = pytz.timezone("Europe/Minsk")
-            time = my_tz.localize(time_no_tz)
-            axel_db = _models.Datchik_5_axel(axel_time=int(time.timestamp())*1000, axel=round(mm, 2))
-            temp_db = _models.Datchik_5_temp(temp_time=int(time.timestamp())*1000, temp=round(temp, 2))
-            db.add(axel_db)
-            db.commit()
-            db.add(temp_db)
-            db.commit()
+            try:
+                time_no_tz = _dt.datetime.strptime(time_format_str, '%Y-%m-%dT%H:%M:%S')
+                time_no_tz += _dt.timedelta(hours=2)
+                my_tz = pytz.timezone("Europe/Minsk")
+                time = my_tz.localize(time_no_tz)
+                axel_db = _models.Datchik_5_axel(axel_time=int(time.timestamp())*1000, axel=round(mm, 2))
+                temp_db = _models.Datchik_5_temp(temp_time=int(time.timestamp())*1000, temp=round(temp, 2))
+                db.add(axel_db)
+                db.commit()
+                db.add(temp_db)
+                db.commit()
+            except ValueError:
+                print(_dt.datetime.now(), "   //////   write db error")
+                with open("logs.log", 'a') as file:
+                    file.write(f"{_dt.datetime.now()} ---------------------------------------------------------------------\n")
+                    file.write(traceback.format_exc())
+                    file.write(ValueError)
 
 
         

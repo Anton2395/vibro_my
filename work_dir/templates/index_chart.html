@@ -15,11 +15,11 @@ var seriesOptions = [],
  * @returns {undefined}
  */
 function createChart() {
-	
 
   Highcharts.stockChart('container', {
 	  time: {
-		  useUTC:true
+		  timezone: 'Europe/Minsk',
+		  useUTC:false
 	  },
 
 
