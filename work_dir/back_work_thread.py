@@ -2,15 +2,17 @@ import time
 import datetime as _dt
 import traceback
 from threading import Thread
+from multiprocessing import Process
 
 import service as _service
 
 
-class Shetchik(Thread):
+class Shetchik(Process):
     def __init__(self, name):
         """Инициализация потока"""
         Thread.__init__(self)
         self.name = name
+        super(Shetchik, self).__init__()
 
     def run(self):
         while True:
