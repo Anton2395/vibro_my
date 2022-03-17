@@ -145,7 +145,8 @@ def downlod_and_add_to_db():
                 with open("logs.log", 'a') as file:
                     file.write(f"{_dt.datetime.now()} ---------------------------------------------------------------------\n")
                     file.write(traceback.format_exc())
-                    file.write(e)
+                    if type(e) == str:
+                        file.write(e)
 
 
         
