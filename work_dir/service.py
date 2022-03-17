@@ -140,12 +140,12 @@ def downlod_and_add_to_db():
                 db.commit()
                 db.add(temp_db)
                 db.commit()
-            except ValueError:
+            except Exception:
                 print(_dt.datetime.now(), "   //////   write db error")
                 with open("logs.log", 'a') as file:
                     file.write(f"{_dt.datetime.now()} ---------------------------------------------------------------------\n")
                     file.write(traceback.format_exc())
-                    file.write(ValueError)
+                    file.write(Exception)
 
 
         
