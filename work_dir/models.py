@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship, sessionmaker
 
 
 
-engine = create_engine("postgresql+psycopg2://mvlab:z1x2c3@10.0.0.2:5432/db1")
+engine = create_engine("postgresql+psycopg2://mvlab:z1x2c3@10.0.0.2:5432/db1", pool_size=20, max_overflow=0)
 
 
 base = declarative_base()
