@@ -131,7 +131,6 @@ def downlod_and_add_to_db():
             time_format_str = time_no_format_str.replace(" ", "")
             try:
                 time_no_tz = _dt.datetime.strptime(time_format_str, '%Y-%m-%dT%H:%M:%S')
-                time_no_tz += _dt.timedelta(hours=2)
                 my_tz = pytz.timezone("Europe/Minsk")
                 time = my_tz.localize(time_no_tz)
                 axel_db = _models.Datchik_5_axel(axel_time=int(time.timestamp())*1000, axel=round(mm, 2))
