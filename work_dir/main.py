@@ -1,15 +1,17 @@
 import threading
 import time
 import datetime as _dt
-
+import multiprocessing as mp
 from app import run_flask
-from back_work_thread import Shetchik
-
+# from back_work_thread import Shetchik
+from back_work_snap import StartProcessOpcForConnectToPLC
 
 
 if __name__ == "__main__":
     name = "Thread #schet"
-    my = Shetchik(name)
+    # my = Shetchik(name)
+    status_connec = mp.Value('i', 0)
+    my = StartProcessOpcForConnectToPLC(status=status_connec)
     my.start()
     my_flask = threading.Thread(target=run_flask)
     my_flask.start()
