@@ -51,7 +51,7 @@ class StartProcessOpcForConnectToPLC(Process):
             "type": "real",
             "time_sleep": 2000,
             "if_change": True,
-            "rewrite_time": 30
+            "rewrite_time": 1
         },
         {
             "name": "temp",
@@ -59,7 +59,7 @@ class StartProcessOpcForConnectToPLC(Process):
             "type": "real",
             "time_sleep": 2000,
             "if_change": True,
-            "rewrite_time": 30
+            "rewrite_time": 1
         }
         ]
         self.bind = {}
