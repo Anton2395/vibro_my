@@ -8,13 +8,13 @@ class Mailing(Thread):
     """
     A threading example
     """
+    r = ''
 
     def __init__(self, name, text):
         """Инициализация потока"""
         Thread.__init__(self)
         self.name = name
         self.text = text
-        self.r = ""
 
     def run(self):
         """Запуск потока"""
@@ -30,5 +30,5 @@ class Mailing(Thread):
                       'text': self.text,
                       'reply_markup': ''
                       }
-            self.r = requests.post(url, json=answer)
-        return self.r.json()
+            r = requests.post(url, json=answer)
+        # return r.json()
