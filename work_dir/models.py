@@ -108,4 +108,4 @@ def get_con():
 
 def createConnection():
     return psycopg2.connect(dbname="db1", user="mvlab",
-                                password="z1x2c3", host="0.0.0.0")#host="10.0.0.2")
+                                password="z1x2c3", host="10.0.0.2")
