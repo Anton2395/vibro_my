@@ -108,36 +108,38 @@
 	}
 
 	function success(data_server) {
-		var name = data_server['name'];
+		var name = 'datchik_5';
+		// var name = data_server['name'];
 		var i = 0;
 		seriesOptions[i] = {
 			name: name,
-			data: function () {
-				// generate an array of random data
-				var data = [],
-					time = data_server['time'],
-					dat = data_server['data'];
+			data: data_server
+			// function () {
+			// 	// generate an array of random data
+			// 	var data = [],
+			// 		time = data_server['time'],
+			// 		dat = data_server['data'];
 
-				// console.log(time)
-				for (let n = 0; n <= time.length - 1; n++) {
-					data.push([
-						time[n],
-						dat[n]
-					]);
-				}
-				// last_id_5 = data_server['length'];
-				// let error_point=0;
-				data = data.sort((a, b) => (a[0] - b[0])).filter((item, i, array) => {
-					let result = true;
-					if ((i != 0) && (item[0] == array[i - 1][0])) {
-						// error_point++;
-						result = false;
-					}
-					return result;
-				});
-				// console.log(error_point);
-				return data;
-			}()
+			// 	// console.log(time)
+			// 	for (let n = 0; n <= time.length - 1; n++) {
+			// 		data.push([
+			// 			time[n],
+			// 			dat[n]
+			// 		]);
+			// 	}
+			// 	// last_id_5 = data_server['length'];
+			// 	// let error_point=0;
+			// 	data = data.sort((a, b) => (a[0] - b[0])).filter((item, i, array) => {
+			// 		let result = true;
+			// 		if ((i != 0) && (item[0] == array[i - 1][0])) {
+			// 			// error_point++;
+			// 			result = false;
+			// 		}
+			// 		return result;
+			// 	});
+			// 	// console.log(error_point);
+			// 	return data;
+			// }()
 		};
 
 		seriesCounter += 1;

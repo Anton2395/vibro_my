@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey, Boo
 from sqlalchemy import MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
-
+import psycopg2
 
 
 engine = create_engine("postgresql+psycopg2://mvlab:z1x2c3@10.0.0.2:5432/db1", pool_size=20, max_overflow=0,  pool_timeout=300)
@@ -102,3 +102,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def get_con():
+    return engine.connect()
+
+def createConnection():
+    return psycopg2.connect(dbname="db1", user="mvlab",
+                                password="z1x2c3", host="0.0.0.0")#host="10.0.0.2")

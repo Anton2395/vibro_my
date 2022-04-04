@@ -116,7 +116,9 @@ def chart_4():
 
 @app.route("/get_data_5", methods=['POST', 'GET'])
 def chart_5():
-    data = _service.get_data(id=4)
+    # data = _service.get_data(id=4)
+    # print(type(_service.get_data_from_datchik()[0]))
+    data = json.dumps(_service.get_data_from_datchik())
     return data
 
 
