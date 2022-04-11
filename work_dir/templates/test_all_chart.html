@@ -120,19 +120,22 @@
             data:JSON.parse(data1)
         })
         chart.hideLoading();
-
+        chart.showLoading();
         $.get('/get_point/4', function (data2) {
             chart.addSeries({
-            name:"Datchik 5",
+            name:"Datchik 4",
             turboThreshold:99999999,
             data:JSON.parse(data2)
         })
+        chart.hideLoading();
+        chart.showLoading();
         $.get('/get_point/3', function (data3) {
             chart.addSeries({
-            name:"Datchik 5",
+            name:"Datchik 3",
             turboThreshold:99999999,
             data:JSON.parse(data3)
         })
+        chart.hideLoading();
         })
         })
 
