@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>All line</title>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+</head>
+
+<body>
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+</body>
+<script>
+    var seriesOptions = [{name:"test", data:[[1,2],[3,4]]}]
+    var chart = Highcharts.stockChart('container', {
+        chart: {
+            type: 'line',
+            zoomType: 'x',
+        },
+        time: {
+            timezone: 'Europe/Minsk',
+            useUTC: false
+        },
+
+        tooltip: {
+            enable: true,
+            valueDecimals: 2,
+            valueSuffix: 'мм/с²',
+        },
+        rangeSelector: {
+            buttons: [{
+                count: 60,
+                type: 'minute',
+                text: '1ч'
+            }, {
+                count: 320,
+                type: 'minute',
+                text: '6ч'
+            },
+            {
+                count: 720,
+                type: 'minute',
+                text: '12ч'
+            },
+            {
+                count: 1440,
+                type: 'minute',
+                text: '24ч'
+            },
+            {
+                count: 3,
+                type: 'day',
+                text: '3д'
+            },
+            {
+                count: 7,
+                type: 'day',
+                text: '7д'
+            },
+            {
+                count: 14,
+                type: 'day',
+                text: '14д'
+            },
+            {
+                count: 30,
+                type: 'day',
+                text: '30д'
+            },
+            {
+                type: 'all',
+                text: 'Всё'
+            }
+            ],
+            inputEnabled: false,
+            selected: 5,
+
+            buttonSpacing: 30,
+            buttonTheme: { // styles for the buttons
+                width: 45,
+                style: {
+                    color: '#000000',
+                },
+                states: {
+                    hover: {
+                        fill: '#42A5F5',
+                        style: {
+                            color: 'white'
+                        }
+                    },
+                    select: {
+                        fill: '#29B6F6',
+                        style: {
+                            color: 'white'
+                        }
+                    }
+                }
+            },
+        },
+
+        xAxis: {
+            type: 'datetime'
+        },
+        // data: {
+        //     // enablePolling:true
+        // },
+
+        // series: seriesOptions
+    });
+
+    chart.showLoading();
+    
+
+
+
+    $.get('/get_point/5', function (data1) {
+        chart.addSeries({
+            name:"Datchik 5",
+            turboThreshold:99999999,
+            data:JSON.parse(data1)
+        })
+        chart.hideLoading();
+
+        $.get('/get_point/4', function (data2) {
+            chart.addSeries({
+            name:"Datchik 5",
+            turboThreshold:99999999,
+            data:JSON.parse(data2)
+        })
+        $.get('/get_point/3', function (data3) {
+            chart.addSeries({
+            name:"Datchik 5",
+            turboThreshold:99999999,
+            data:JSON.parse(data3)
+        })
+        })
+        })
+
+    });
+
+
+</script>
+
+</html>

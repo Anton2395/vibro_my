@@ -118,7 +118,7 @@ def chart_4():
 def chart_5():
     # data = _service.get_data(id=4)
     # print(type(_service.get_data_from_datchik()[0]))
-    data = json.dumps(_service.get_data_from_datchik())
+    data = json.dumps(_service.get_data_from_datchik(5))
     return data
 
 
@@ -146,6 +146,17 @@ def main():
 @app.route("/chart", methods=['GET'])
 def main_chart():
     return render_template('index_chart.html')
+
+
+@app.route("/all_line", methods=['GET'])
+def all_line_chart():
+    return render_template('test_all_chart.html')
+
+
+@app.route("/get_point/<number>", methods=['GET'])
+def get_point(number):
+    data = json.dumps(_service.get_data_from_datchik(number))
+    return data
 
 
 @app.route("/tg", methods=['POST'])

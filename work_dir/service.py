@@ -36,11 +36,14 @@ def get_data(id):
                 json_data['length'] = data.id
     return json_data
 
-def get_data_from_datchik():
+def get_data_from_datchik(number):
     conn = _models.createConnection()
     curs = conn.cursor()
-    curs.execute("SELECT axel_time, axel FROM datchik_5_axel order by axel_time;")
-    return curs.fetchall()
+    curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel order by axel_time;")
+    answer = curs.fetchall()
+    # answer = []
+    conn.close()
+    return answer
     
 
 def update_data(last_id_1, last_id_2, last_id_3, last_id_4, last_id_5):
