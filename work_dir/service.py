@@ -39,7 +39,10 @@ def get_data(id):
 def get_data_from_datchik(number):
     conn = _models.createConnection()
     curs = conn.cursor()
-    curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel order by axel_time;")
+    if number == 5 or number == '5':
+        curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel order by axel_time;")
+    else:
+        curs.execute(f"SELECT axel_time, axel/10 FROM datchik_{number}_axel order by axel_time;")
     answer = curs.fetchall()
     # answer = []
     conn.close()
