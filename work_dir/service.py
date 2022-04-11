@@ -41,8 +41,10 @@ def get_data_from_datchik(number):
     curs = conn.cursor()
     if number == 5 or number == '5':
         curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel order by axel_time;")
-    else:
-        curs.execute(f"SELECT axel_time, axel/10 FROM datchik_{number}_axel order by axel_time;")
+    elif number == 3 or number == '3':
+        curs.execute(f"SELECT axel_time, axel/16 FROM datchik_{number}_axel order by axel_time;")
+    elif number == 4 or number == '4':
+        curs.execute(f"SELECT axel_time, axel/30 FROM datchik_{number}_axel order by axel_time;")
     answer = curs.fetchall()
     # answer = []
     conn.close()
