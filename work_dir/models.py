@@ -5,10 +5,11 @@ from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey, Boo
 from sqlalchemy import MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy.pool import NullPool
 import psycopg2
 
 
-engine = create_engine("postgresql+psycopg2://mvlab:z1x2c3@10.0.0.2:5432/db1", pool_size=20, max_overflow=0,  pool_timeout=300)
+engine = create_engine("postgresql+psycopg2://mvlab:z1x2c3@10.0.0.2:5432/db1", poolclass=NullPool)# pool_size=20, max_overflow=0,  pool_timeout=300)
 
 
 base = declarative_base()

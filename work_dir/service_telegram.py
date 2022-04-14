@@ -52,22 +52,24 @@ def pars_message(data):
 
 
 def add_user_tg(chat_id: int, username: str):
-    with _models.get_db() as db:
-        user = db.query(_models.User).filter(_models.User.chat_id==chat_id).first()
-        if not user:
-            user = _models.User(chat_id=chat_id, username=username)
-            db.add(user)
-            db.commit()
-        else:
-            user.username = username
-            db.commit()
+    db = _models.SessionLocal()
+    user = db.query(_models.User).filter(_models.User.chat_id==chat_id).first()
+    if not user:
+        user = _models.User(chat_id=chat_id, username=username)
+        db.add(user)
+        db.commit()
+    else:
+        user.username = username
+        db.commit()
+    db.close()
 
 
 def update_subscription(chat_id, subscription):
-    with _models.get_db() as db:
-        user = db.query(_models.User).filter(_models.User.chat_id==chat_id).first()
-        user.mailing = subscription
-        db.commit()
+    db = _models.SessionLocal()
+    user = db.query(_models.User).filter(_models.User.chat_id==chat_id).first()
+    user.mailing = subscription
+    db.commit()
+    db.close()
 
 
 def routing_tg(message, response):
