@@ -11,7 +11,6 @@ app = Flask(__name__)
 @app.route("/data", methods=['POST'])
 async def pars():
     start = _dt.datetime.now()
-    print(f"start {start}")
     data = request.get_json()
     mac = data['MAC']
     Axel_time = data['Axel_time']
@@ -92,8 +91,8 @@ async def pars():
             db.commit()
     db.close()
     end = _dt.datetime.now()
-    print(f"end: {end}")
-    print(f"duration: {end-start}")
+    with open("test_time.txt", "a") as file:
+        file.write(f"start: {start}\nend: {end}\nduration:{end-start}")
     return 'ok', 200, {'Content-Type': 'text'}
 
 
