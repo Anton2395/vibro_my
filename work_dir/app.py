@@ -92,7 +92,7 @@ async def pars():
     db.close()
     end = _dt.datetime.now()
     with open("test_time.txt", "a") as file:
-        file.write(f"start: {start}\nend: {end}\nduration:{end-start}")
+        file.write(f"start: {start}\nend: {end}\nduration:{end-start}\n")
     return 'ok', 200, {'Content-Type': 'text'}
 
 
