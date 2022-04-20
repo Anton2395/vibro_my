@@ -4,13 +4,11 @@ import models as _models
 import service_telegram as _tel_bot
 import service as _service
 import json
-import datetime as _dt
 
 app = Flask(__name__)
 
 @app.route("/data", methods=['POST'])
 async def pars():
-    start = _dt.datetime.now()
     data = request.get_json()
     mac = data['MAC']
     Axel_time = data['Axel_time']
@@ -90,9 +88,6 @@ async def pars():
             db.add(data_to_db)
             db.commit()
     db.close()
-    end = _dt.datetime.now()
-    with open("test_time.txt", "a") as file:
-        file.write(f"start: {start}\nend: {end}\nduration:{end-start}\n")
     return 'ok', 200, {'Content-Type': 'text'}
 
 
