@@ -10,7 +10,6 @@ app = Flask(__name__)
 @app.route("/data", methods=['POST'])
 async def pars():
     data = request.get_json()
-    print(data)
     mac = data['MAC']
     Axel_time = data['Axel_time']
     Axel = data['Axel']
