@@ -136,15 +136,6 @@
             data:JSON.parse(data3)
         })
         chart.hideLoading();
-        chart.showLoading();
-        $.get('/get_point/99', function (data3) {
-            chart.addSeries({
-            name:"Datchik 99",
-            turboThreshold:99999999,
-            data:JSON.parse(data3)
-        })
-        chart.hideLoading();
-        })
         })
         })
 
