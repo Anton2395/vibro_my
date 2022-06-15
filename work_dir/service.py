@@ -42,11 +42,33 @@ def get_data_from_datchik(number):
     curs = conn.cursor()
     if number == 5 or number == '5':
         curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel order by axel_time;")
+        answer = curs.fetchall()
     elif number == 3 or number == '3':
         curs.execute(f"SELECT axel_time, axel/16 FROM datchik_{number}_axel order by axel_time;")
+        answer = curs.fetchall()
     elif number == 4 or number == '4':
         curs.execute(f"SELECT axel_time, axel/30 FROM datchik_{number}_axel order by axel_time;")
-    answer = curs.fetchall()
+        answer = curs.fetchall()
+    elif number == 99 or number == '99':
+        curs.execute(f"SELECT axel_time, axel/16 FROM datchik_3_axel order by axel_time;")
+        x = []
+        y = []
+        for time, value in cur.fetchall():
+            x.append(time)
+            y.append(value)
+        x_new = []
+        y_new = []
+        for index, (time, val) in enumerate(zip(x,y)):
+            # print(index, "-", time, val)
+            if index >= 2:
+                x_new.append(time)
+            # else:
+                # delta_x = val - y[index-1]
+                # y_new.append(y[index-1]+(delta_x*0.5))
+                y_new.append((y[index]+y[index-1]+y[index-2])/3)
+        answer = []
+        for i in zip(x_new, y_new):
+            answer.append(i)
     # answer = []
     conn.close()
     return answer
