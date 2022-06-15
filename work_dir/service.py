@@ -53,7 +53,7 @@ def get_data_from_datchik(number):
         curs.execute(f"SELECT axel_time, axel/16 FROM datchik_3_axel order by axel_time;")
         x = []
         y = []
-        for time, value in cur.fetchall():
+        for time, value in curs.fetchall():
             x.append(time)
             y.append(value)
         x_new = []
