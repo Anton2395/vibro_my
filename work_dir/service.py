@@ -60,12 +60,12 @@ def get_data_from_datchik(number):
         y_new = []
         for index, (time, val) in enumerate(zip(x,y)):
             # print(index, "-", time, val)
-            if index >= 2:
+            if index >= 3:
                 x_new.append(time)
             # else:
                 # delta_x = val - y[index-1]
                 # y_new.append(y[index-1]+(delta_x*0.5))
-                y_new.append((y[index]+y[index-1]+y[index-2])/3)
+                y_new.append((y[index]+y[index-1]+y[index-2]+y[index-3])/4)
         answer = []
         for i in zip(x_new, y_new):
             answer.append(i)
