@@ -41,16 +41,16 @@ def get_data_from_datchik(number):
     conn = _models.createConnection()
     curs = conn.cursor()
     if number == 5 or number == '5':
-        curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel order by axel_time;")
+        curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
         answer = curs.fetchall()
     elif number == 3 or number == '3':
-        curs.execute(f"SELECT axel_time, axel/16 FROM datchik_{number}_axel order by axel_time;")
+        curs.execute(f"SELECT axel_time, axel/16 FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
         answer = curs.fetchall()
     elif number == 4 or number == '4':
-        curs.execute(f"SELECT axel_time, axel/30 FROM datchik_{number}_axel order by axel_time;")
+        curs.execute(f"SELECT axel_time, axel/30 FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
         answer = curs.fetchall()
     elif number == 99 or number == '99':
-        curs.execute(f"SELECT axel_time, axel/16 FROM datchik_3_axel order by axel_time;")
+        curs.execute(f"SELECT axel_time, axel/16 FROM datchik_3_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
         x = []
         y = []
         for time, value in curs.fetchall():
@@ -58,7 +58,7 @@ def get_data_from_datchik(number):
             y.append(value)
         x_new = []
         y_new = []
-        for index, (time, val) in enumerate(zip(x,y)):
+        for index, (time, val) in enumerate(zip(x, y)):
             # print(index, "-", time, val)
             if index >= 3:
                 x_new.append(time)
