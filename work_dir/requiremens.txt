@@ -20,3 +20,4 @@ SQLAlchemy==1.4.32
 urllib3==1.26.8
 uvicorn==0.17.6
 Werkzeug==2.0.3
+modbus-tk==1.1.2
