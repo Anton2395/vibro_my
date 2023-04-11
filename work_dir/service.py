@@ -9,6 +9,37 @@ import pytz
 import models as _models
 
 
+def median(f):
+    # Creating buffer
+    if not hasattr(median, "buffer"):
+        median.buffer = [f] * 3
+
+    # Move buffer to actually values ( [0, 1, 2] -> [1, 2, 3] )
+    median.buffer = median.buffer[1:]
+    median.buffer.append(f)
+
+    # Calculation median
+    a = median.buffer[0]
+    b = median.buffer[1]
+    c = median.buffer[2]
+    middle = max(a, c) if (max(a, b) == max(b, c)) else max(b, min(a, c))
+
+    return middle
+
+
+def easy_mean(f, s_k=0.1, max_k=0.9, d=1.5):
+    # Creating static variable
+    if not hasattr(easy_mean, "fit"):
+        easy_mean.fit = f
+
+    # Adaptive ratio
+    k = s_k if (abs(f - easy_mean.fit) < d) else max_k
+
+    # Calculation easy mean
+    easy_mean.fit += (f - easy_mean.fit) * k
+
+    return easy_mean.fit
+
 
 def get_data(id):
     if id == 0:
@@ -70,6 +101,12 @@ def get_data_from_datchik(number):
         for i in zip(x_new, y_new):
             answer.append(i)
     # answer = []
+    if number == '44':
+        curs.execute(
+            f"SELECT axel_time, axel/15 FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
+        answer = []
+        for time, value in curs.fetchall():
+            answer.append((time, easy_mean(median(value))))
     conn.close()
     return answer
     
