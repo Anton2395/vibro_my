@@ -47,7 +47,7 @@ class StartProcessOpcForConnectToPLC(Process):
             "start": 0,
             "type": "real",
             "time_sleep": 2000,
-            "if_change": False,
+            "if_change": True,
             "rewrite_time": 1
         },
         {

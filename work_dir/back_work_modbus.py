@@ -23,9 +23,9 @@ data = [{
             'signed': False,
             'big_or_little_endian': False,
             'byte_swap': True,
-            'min_time_check': 500,
+            'min_time_check': 1000,
             'max_time_check': 1,
-            'if_change': False,
+            'if_change': True,
             'divide': False,
             'divide_num': 1,
             'bit': 0
