@@ -23,7 +23,7 @@ data = [{
             'signed': False,
             'big_or_little_endian': False,
             'byte_swap': True,
-            'min_time_check': 1000,
+            'min_time_check': 500,
             'max_time_check': 1,
             'if_change': False,
             'divide': False,
