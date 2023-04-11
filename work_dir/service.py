@@ -103,7 +103,7 @@ def get_data_from_datchik(number):
     # answer = []
     if number == '44':
         curs.execute(
-            f"SELECT axel_time, axel/15 FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
+            f"SELECT now_time, value/15 FROM datchik_{number}_axel where (current_timestamp - now_time) < interval '1 month' order by now_time;")
         answer = []
         for time, value in curs.fetchall():
             answer.append((time, easy_mean(median(value))))
