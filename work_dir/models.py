@@ -10,7 +10,7 @@ import psycopg2
 
 
 engine = create_engine("postgresql+psycopg2://mvlab:z1x2c3@10.0.0.2:5432/db1", poolclass=NullPool)# pool_size=20, max_overflow=0,  pool_timeout=300)
-
+# engine = create_engine("postgresql+psycopg2://mvlab:z1x2c3@45.88.78.174:5432/db1", poolclass=NullPool)# pool_size=20, max_overflow=0,  pool_timeout=300)
 
 base = declarative_base()
 
@@ -110,3 +110,4 @@ def get_con():
 def createConnection():
     return psycopg2.connect(dbname="db1", user="mvlab",
                                 password="z1x2c3", host="10.0.0.2")
+                                # password="z1x2c3", host="45.88.78.174")

@@ -25,7 +25,7 @@ data = [{
             'byte_swap': True,
             'min_time_check': 1000,
             'max_time_check': 1,
-            'if_change': True,
+            'if_change': False,
             'divide': False,
             'divide_num': 1,
             'bit': 0

@@ -42,12 +42,12 @@ class StartProcessOpcForConnectToPLC(Process):
         self.DB = 2
         self.start_address_DB = 0
         self.offset_DB = 8
-        self.values_list = [ {
+        self.values_list = [{
             "name": "axel",
             "start": 0,
             "type": "real",
             "time_sleep": 2000,
-            "if_change": True,
+            "if_change": False,
             "rewrite_time": 1
         },
         {
