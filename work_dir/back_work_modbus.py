@@ -162,7 +162,7 @@ class ConnectModProcess(Process):
         elif type_val == 'float':
             end = start + 2
             temp_result = self.bytearray_data[start:end]
-            result = self._convert_to_float(value, temp_result)
+            result = round(self._convert_to_float(value, temp_result),2)
         elif type_val == 'double':
             end = start + 2
             temp_result = self.bytearray_data[start:end]
