@@ -72,7 +72,7 @@ def get_data_from_datchik(number):
     conn = _models.createConnection()
     curs = conn.cursor()
     if number == 5 or number == '5':
-        curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
+        curs.execute(f"SELECT axel_time, axel FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '5 month' order by axel_time;")
         answer = curs.fetchall()
     elif number == 3 or number == '3':
         curs.execute(f"SELECT axel_time, axel/16 FROM datchik_{number}_axel where (current_timestamp - to_timestamp(axel_time/1000)) < interval '1 month' order by axel_time;")
