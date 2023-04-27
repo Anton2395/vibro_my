@@ -52,11 +52,13 @@
     });
 
     function get_data_from_period(start,end) {
+        chart.showLoading('Loading data from server...');
         $.get('/get_test/'+start+'/'+end, function (data) {
         // $.get('http://127.0.0.1:5000/get_test/'+start+'/'+end, function (data) {
             let dataFromJson = JSON.parse(data)
             // testFlag = false
             chart.series[0].setData(dataFromJson)
+            chart.hideLoading();
             
         });
     }
