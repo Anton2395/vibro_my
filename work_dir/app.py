@@ -1,11 +1,16 @@
 from flask import Flask, request, render_template, jsonify
+from flask_cors import CORS
 
 import models as _models
 import service_telegram as _tel_bot
 import service as _service
 import json
+import time
+import datetime
 
 app = Flask(__name__)
+CORS(app)
+
 
 @app.route("/data", methods=['POST'])
 async def pars():
@@ -173,6 +178,39 @@ def pull_json_tg():
     message = _tel_bot.pars_message(request.get_json())
     _tel_bot.routing_tg(message=message, response=request.get_json())
     return jsonify(request.get_json())
+
+
+@app.route("/new", methods=['GET'])
+def main_page():
+    conn = _models.createConnection()
+    return render_template('new_index.html')
+
+
+@app.route("/get_full_data_from", methods=['GET'])
+def main_page12():
+    conn = _models.createConnection()
+    curs = conn.cursor()
+    curs.execute("""SELECT axel_time, axel FROM datchik_5_axel WHERE id % 500 = 0 order by axel_time""")
+    data = curs.fetchall()
+    conn.close()
+    return json.dumps(data)
+
+
+@app.route("/get_test/<start>/<end>", methods=['GET'])
+def period_test(start=None, end=None):
+    start_int = int(start)
+    end_int = int(end)
+    conn = _models.createConnection()
+    curs = conn.cursor()
+    curs.execute(f"""SELECT count(*) FROM datchik_5_axel where axel_time>={start_int} and axel_time<={end_int}""")
+    count = curs.fetchone()[0]
+    if count > 30000:
+        curs.execute(f"""SELECT axel_time, axel FROM datchik_5_axel WHERE axel_time>={start_int} and axel_time<={end_int} and id % {round(count/3000)} = 0 order by axel_time""")
+    else:
+        curs.execute(f"""SELECT axel_time, axel FROM datchik_5_axel WHERE axel_time>={start_int} and axel_time<={end_int} order by axel_time""")
+    data = curs.fetchall()
+    conn.close()
+    return json.dumps(data)
 
 
 def run_flask():

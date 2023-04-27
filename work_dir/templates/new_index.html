@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+    <!-- <script src="../static/js/jquery-3.6.0.min.js"></script> -->
+</head>
+<body>
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+</body>
+<script>
+    let testFlag = null;
+    // var cart = null
+    var chart = Highcharts.stockChart('container', {
+        chart: {
+            type: 'spline',
+            zoomType: 'x',
+        },
+        navigator: {
+            adaptToUpdatedData: false,
+        },
+        scrollbar: {
+            liveRedraw: false
+        },
+        time: {
+            timezone: 'Europe/Minsk',
+            useUTC: false
+        },
+        tooltip: {
+            enable: true,
+            valueDecimals: 2,
+            valueSuffix: 'мм/с²',
+        },
+
+        xAxis: {
+            type: 'datetime',
+            events: {
+                afterSetExtremes: function(event){
+                    // console.log(Math.round(event.min), Math.round(event.max))
+                    console.log(testFlag)
+                    if(testFlag) {
+                        get_data_from_period(Math.round(event.min), Math.round(event.max));
+                    } else {
+                       testFlag = true
+                    }
+                }
+            },
+        },
+        series: []
+    });
+
+    function get_data_from_period(start,end) {
+        $.get('/get_test/'+start+'/'+end, function (data) {
+        // $.get('http://127.0.0.1:5000/get_test/'+start+'/'+end, function (data) {
+            let dataFromJson = JSON.parse(data)
+            // testFlag = false
+            chart.series[0].setData(dataFromJson)
+            
+        });
+    }
+
+    $.get('/get_full_data_from', function (data) {
+    // $.get('http://127.0.0.1:5000/get_full_data_from', function (data) {
+       let dataFromJson = JSON.parse(data)
+    //    console.log(dataFromJson)
+    //    chart.series[0].setData(dataFromJson)
+       chart.addSeries({name:"test",data:dataFromJson, dataGrouping:{enabled:false}})
+    //    chart.addSeries({name:"test",data:dataFromJson})
+        //.forEach(el=> {
+        //    chart.series[0].addPoint([el[0]/1000, el[1]])
+        //})
+    })
+</script>
+</html>

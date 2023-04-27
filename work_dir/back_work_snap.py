@@ -225,7 +225,7 @@ class StartProcessOpcForConnectToPLC(Process):
             result = 0
         return result
 
-
-b = mp.Value('i', 0)
-a = StartProcessOpcForConnectToPLC(status=b)
-a.start()
+#
+# b = mp.Value('i', 0)
+# a = StartProcessOpcForConnectToPLC(status=b)
+# a.start()
