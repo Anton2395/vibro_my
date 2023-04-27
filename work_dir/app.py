@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, jsonify
-from flask_cors import CORS
+# from flask_cors import CORS
 
 import models as _models
 import service_telegram as _tel_bot
@@ -9,7 +9,7 @@ import time
 import datetime
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 
 @app.route("/data", methods=['POST'])
