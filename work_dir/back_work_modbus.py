@@ -111,7 +111,7 @@ class ConnectModProcess(Process):
                     type_sql = 'INT'
                 value['table_name'] = self.name_connect + "_" + area["name"] + "_" + value["name"]
                 self._c.execute(f'''CREATE TABLE IF NOT EXISTS {value['table_name']}
-                                    (key serial primary key,
+                                    (id serial primary key,
                                     now_time TIMESTAMP  WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
                                     value {type_sql})''')
                 self._conn.commit()

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/newpage.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+    <div class="setting-line-place">
+        <div class="place vibro">
+            <h1>Вибрация:</h1>
+            <div class="button-place">
+                <button id="vibr3" class="big add" onclick="clickAddButton('vibr3')">Добавит данные Д3</button>
+                <div class="similar-button-place">
+                    <button id="vibr4" class="small add" onclick="clickAddButton('vibr4')">Добавит данные Д4</button>
+                    <button id="vibr44" class="small add" onclick="clickAddButton('vibr44')">Добавит данные Д44</button>
+                </div>
+                <button id="vibr5" class="big add" onclick="clickAddButton('vibr5')">Добавит данные Д5</button>
+            </div>
+        </div>
+        <div class="place temp">
+            <h1>Температура:</h1>
+            <div class="button-place">
+                <button id="temp3" class="big add" onclick="clickAddButton('temp3')">Добавит данные Д3</button>
+                <div class="similar-button-place">
+                    <button id="temp4" class="small add" onclick="clickAddButton('temp4')">Добавит данные Д4</button>
+                    <button id="temp44" class="small add" onclick="clickAddButton('temp44')">Добавит данные Д44</button>
+                </div>
+                <button id="temp5" class="big add" onclick="clickAddButton('temp5')">Добавит данные Д5</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let testFlag = null;
+    // var cart = null
+    var chart = Highcharts.stockChart('container', {
+        chart: {
+            type: 'spline',
+            zoomType: 'x',
+            backgroundColor: null
+        },
+        credits:{
+            enabled:false
+        },
+        navigator: {
+            adaptToUpdatedData: false,
+        },
+        scrollbar: {
+            liveRedraw: false
+        },
+        time: {
+            timezone: 'Europe/Minsk',
+            useUTC: false
+        },
+        tooltip: {
+            enable: true,
+            valueDecimals: 2,
+            valueSuffix: 'мм/с²',
+        },
+
+        xAxis: {
+            type: 'datetime',
+            gridLineWidth: 0,
+            events: {
+                afterSetExtremes: function(event){
+                    console.log(Math.round(event.min), '  ||  ', Math.round(event.max))
+                    frontsTime.end = Math.round(event.max)
+                    frontsTime.start = Math.round(event.min)
+                    if(testFlag) {
+                        updateSerials()
+                    } else {
+                       testFlag = true
+                    }
+                }
+            },
+        },
+        yAxis: {
+            gridLineWidth: 0,
+        },
+        series: [
+        ]
+    });
+    function updateSerials() {
+        seriasFlag.forEach(el => {
+            let url = generateUrl(el)
+            chart.showLoading('Loading data from server...');
+            $.get(url).then(respons => {
+                    chart.series.find(elSeries => {
+                        if (elSeries.name == el) {
+                            elSeries.setData(JSON.parse(respons))
+                            return true
+                        }
+                    })
+                    chart.hideLoading();  
+                })       
+        })
+    }
+    let seriasFlag = []
+    let frontsTime = {
+        start: NaN,
+        end: NaN
+    }
+    function clickAddButton(id) {
+        let elQuer = $("#"+id)
+        let mode = checkModer(elQuer)
+        let url = generateUrl(id)
+        console.log(elQuer, mode, url)
+        if (mode == 'add') {
+            if (seriasFlag.length < 2) {
+                chart.showLoading('Loading data from server...');
+                $.get(url).then(respons => {
+                    chart.addSeries({name:id, data:JSON.parse(respons), dataGrouping:{enabled:false}})
+                    changeClassButton(elQuer)
+                    seriasFlag.push(id)
+                    chart.hideLoading();  
+                })           
+                   
+            } else {
+                alert('Можно вывести только 2 линии')
+            }
+        } else {
+            chart.series.find(el => {
+                if (el.name == id) {
+                    console.log()
+                    if (el.data[el.data.length-1].options.x == frontsTime.end || el.data[0].options.x == frontsTime.start) {
+                        testFlag = null
+                        console.log('testFlag false')
+                    }
+                    return 'ok'
+                }
+            })
+            seriasFlag.splice(seriasFlag.indexOf(id), 1)
+            if (seriasFlag.length == 0) {
+                frontsTime.start = NaN
+                frontsTime.end = NaN
+                testFlag = null
+            }
+            
+            chart.series.find(el => {
+                if (el.name == id) {
+                    el.remove()
+                    return 'ok'
+                }
+            })
+            changeClassButton(elQuer)
+            
+
+        }
+        
+    }
+
+    function generateUrl(id) {
+        if (frontsTime.start && frontsTime.end) {
+            return '/get_one_line/'+id+'/'+frontsTime.start+'/'+frontsTime.end
+        } else {
+            return '/get_one_line/'+id
+        }
+    }
+
+    function checkModer(el) {
+        if (el[0].classList[1] == 'add') {
+            return 'add'
+        } else {
+            return 'remove'
+        }
+    }
+
+    function changeClassButton(el) {
+        if (el[0].classList[1] == 'add') {
+            el.removeClass('add').addClass('remove')
+        } else {
+            el.removeClass('remove').addClass('add')
+        }
+    }
+
+
+</script>
+</html>

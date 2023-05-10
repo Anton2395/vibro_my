@@ -1,16 +1,16 @@
 from flask import Flask, request, render_template, jsonify
 # from flask_cors import CORS
-
+from pytz import timezone
 import models as _models
 import service_telegram as _tel_bot
 import service as _service
+from service_for_graf import generate_column, get_table_name
 import json
-import time
 import datetime
 
 app = Flask(__name__)
 # CORS(app)
-
+tz = timezone('Europe/Minsk')
 
 @app.route("/data", methods=['POST'])
 async def pars():
@@ -213,6 +213,69 @@ def period_test(start=None, end=None):
     return json.dumps(data)
 
 
+@app.route("/get_one_line/<point>", methods=['GET'])
+def get_start_points(point):
+    conn = _models.createConnection()
+    curs = conn.cursor()
+    table_name = get_table_name(point)
+    columns, order_param = generate_column(table_name)
+    if table_name:
+        curs.execute(f""" SELECT count(*) from {table_name}""")
+        count = curs.fetchone()[0]
+        if count > 3000:
+            curs.execute(f"""SELECT {columns} FROM {table_name} WHERE id % {round(count/3000)} = 0 order by {order_param}""")
+        else:
+            curs.execute(f"""SELECT {columns} FROM {table_name} order by {order_param}""")
+        data = curs.fetchall()
+        conn.close()
+        return json.dumps(data)
+    else:
+        conn.close()
+        return 'bad request'
+
+
+@app.route("/get_one_line/<point>/<start>/<end>", methods=['GET'])
+def get_duration_points(point, start, end):
+    start_int = int(start)
+    end_int = int(end)
+    conn = _models.createConnection()
+    curs = conn.cursor()
+    table_name = get_table_name(point)
+    columns, order_param = generate_column(table_name)
+    if table_name and order_param != 'now_time':
+        curs.execute(f""" SELECT count(*) from {table_name} WHERE {order_param}>={start_int} and {order_param}<={end_int}""")
+        count = curs.fetchone()[0]
+        if count > 3000:
+            curs.execute(f"""SELECT {columns} FROM {table_name} WHERE {order_param}>={start_int} and {order_param}<={end_int} and id % {round(count/3000)} = 0 order by {order_param}""")
+        else:
+            curs.execute(f"""SELECT {columns} FROM {table_name} WHERE {order_param}>={start_int} and {order_param}<={end_int} order by {order_param}""")
+        data = curs.fetchall()
+        conn.close()
+        return json.dumps(data)
+    elif table_name and order_param == 'now_time':
+        new_start = tz.localize(datetime.datetime.fromtimestamp(start_int/1000))
+        new_end = tz.localize(datetime.datetime.fromtimestamp(end_int/1000))
+        curs.execute(f""" SELECT count(*) from {table_name} WHERE {order_param}>='{new_start}' and {order_param}<='{new_end}'""")
+        count = curs.fetchone()[0]
+        if count > 3000:
+            curs.execute(f"""SELECT {columns} FROM {table_name} WHERE {order_param}>='{new_start}' and {order_param}<='{new_end}' and id % {round(count/3000)} = 0 order by {order_param}""")
+        else:
+            curs.execute(f"""SELECT {columns} FROM {table_name} WHERE {order_param}>='{new_start}' and {order_param}<='{new_end}' order by {order_param}""")
+        data = curs.fetchall()
+        conn.close()
+        return json.dumps(data)
+    else:
+        conn.close()
+        return 'bad request'
+
+@app.route("/control_line", methods=['GET'])
+def page_with_control_line():
+    return render_template('index_with_control_line.html')
+
+
 def run_flask():
+#     app.run(host="0.0.0.0", debug=True)
     app.run(host="0.0.0.0")
+
+# run_flask()
 
